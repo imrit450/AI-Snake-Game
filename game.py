@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 from pygame.math import Vector2
+# import agent
 
 
 class SNAKE:
@@ -120,6 +121,7 @@ class MAIN:
     def __init__(self):
         self.snake = SNAKE()
         self.fruit = FRUIT()
+        # self.agent = AGENT()
 
     def update(self):
         self.snake.move_snake()
@@ -193,7 +195,7 @@ pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
 
 cell_size = 40
-cell_number = 20
+cell_number = 15
 screen = pygame.display.set_mode((cell_number * cell_size, cell_number * cell_size))  # 40*20 = 800 cells
 clock = pygame.time.Clock()  # influence time
 apple_original = pygame.image.load('Graphics/apple.png').convert_alpha()
@@ -201,7 +203,7 @@ apple = pygame.transform.scale(apple_original, (cell_size, cell_size))
 game_font = pygame.font.Font('Font/PoetsenOne-Regular.ttf', 25)
 
 SCREEN_UPDATE = pygame.USEREVENT  # creates a user event
-pygame.time.set_timer(SCREEN_UPDATE, 150)  # triggers SCREEN_UPDATE every 150 milliseconds, thus a timer
+pygame.time.set_timer(SCREEN_UPDATE, 50)  # triggers SCREEN_UPDATE every 150 milliseconds, thus a timer
 
 main_game = MAIN()
 
@@ -215,16 +217,8 @@ while True:
             print(
                 "Snake Head position: " + str(main_game.snake.body[0]))
             print("Fruit Position: " + str(main_game.fruit.pos))
-            # if main_game.snake.body[0].x == main_game.fruit.pos.x:
-            #     main_game.snake.direction = Vector2(0, 0)
-            #     print(main_game.snake.direction)
-            # elif main_game.snake.body[0].x < main_game.fruit.pos.x:
-            #     if main_game.snake.direction.x != 1:
-            #         main_game.snake.direction = Vector2(-1, 0)
-            # elif main_game.snake.body[0].x < main_game.fruit.pos.x:
-            #             #     if main_game.snake.direction.x != 1:
-            #             #         main_game.snake.direction = Vector2(-1, 0)
 
+            # Agent Goal Based
             if main_game.snake.body[0].y < main_game.fruit.pos.y:
                 if main_game.snake.direction.y != -1:
                     main_game.snake.direction = Vector2(0, 1)
